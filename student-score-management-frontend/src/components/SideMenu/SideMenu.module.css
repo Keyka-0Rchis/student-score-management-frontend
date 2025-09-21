@@ -1,0 +1,26 @@
+.sidemenuOpen{
+    width: 20%;
+    height: 100%;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    border-right: 1px black solid;
+}
+.sidemenuClose{
+    width: 0%;
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.menuIcon{
+    display: block;
+    border-bottom: 1px gray solid;
+    font-size: 24px;
+    padding-left: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+.iconPrint{
+    white-space: nowrap; /*改行禁止*/
+    overflow: hidden;
+    text-overflow: ellipsis;/*はみ出ると...に*/
+}
