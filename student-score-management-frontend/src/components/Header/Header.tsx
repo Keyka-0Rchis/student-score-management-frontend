@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Header.module.css'
 import { Link } from 'react-router-dom';
 //module.cssをインポート。stylesは慣習的な名前。
