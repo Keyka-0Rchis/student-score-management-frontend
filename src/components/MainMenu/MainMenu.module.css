@@ -13,13 +13,13 @@
 .menuIcon{
     height: 100px;
     width: 200px;
-    background-color: aqua;
+    background-color: white;
     border-radius: 20px;
     margin: auto 20px;
     text-align: center;
     vertical-align: middle;
     text-decoration: none;
-    color: inherit;
+    color: black;
 }
 .menuIcon:active{
     background-color: blue;
