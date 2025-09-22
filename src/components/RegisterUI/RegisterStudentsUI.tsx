@@ -35,7 +35,7 @@ function RegisterStudentsUI(){
         });
 
         try {
-            const response = await fetch("http://localhost:8080/api/students", {
+            const response = await fetch("http://localhost:8080/api/students/registerStudents", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
