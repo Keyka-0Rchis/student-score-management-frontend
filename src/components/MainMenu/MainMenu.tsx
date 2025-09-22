@@ -1,7 +1,7 @@
 import styles from './MainMenu.module.css'
 import { Link } from 'react-router-dom';
 
-type LinkTo ="/registerStudents";
+type LinkTo ="/RegisterStudentsUI";
 
 function MainMenu (
     props:{
@@ -9,7 +9,7 @@ function MainMenu (
     }
 ){
     const items:{mode:LinkTo ; title:string;iconStyle:string}[]=[
-        {mode:"/registerStudents",title:props.titles.registerStudents,iconStyle:styles.addIcon},
+        {mode:"/RegisterStudentsUI",title:props.titles.registerStudents,iconStyle:styles.addIcon},
     ]
     //この後forループっぽくするために、一つ一つのmode毎に変数をまとめておく。
     return (

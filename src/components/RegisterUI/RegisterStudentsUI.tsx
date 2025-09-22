@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
-import styles from './AddUI.module.css'
+import styles from './RegisterStudents.module.css'
 
 function RegisterStudentsUI(){
     const [csvData, setCsvData] = useState<string[][]>([])
