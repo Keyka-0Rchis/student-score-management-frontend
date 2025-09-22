@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate
 } from 'react-router-dom';
 import Header from './components/Header/Header';
 import MainMenu from './components/MainMenu/MainMenu';
@@ -38,6 +39,7 @@ function App() {
             }}
               isOpen = {SideMenuOpen}/>
             <Routes>
+              <Route path="/" element={<Navigate to="/mainmenu" />} />
               <Route 
                 path="/mainmenu"
                 element={

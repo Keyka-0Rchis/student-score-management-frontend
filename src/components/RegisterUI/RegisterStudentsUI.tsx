@@ -24,7 +24,7 @@ function RegisterStudentsUI(){
 
     //登録処理
     const handleSubmit = async () => {
-        // csvData:"生徒通し番号","一年次出席番号","2年次出席番号","3年次出席番号","氏名","生年月日","卒業フラグ",
+        // studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birth,graduateFlag
         const [header, ...rows] = csvData;
         const students = rows.map((row) => {
             const obj: any = {};
