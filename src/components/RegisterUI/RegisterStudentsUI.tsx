@@ -24,12 +24,24 @@ function RegisterStudentsUI(){
 
     //登録処理
     const handleSubmit = async () => {
-        // studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birth,graduateFlag
+        // studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduateFlag
+        const formatDate = (dateStr: string) => {
+            const d = new Date(dateStr);
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`; // ← LocalDateが理解できる形式--でつなぐ形に変換
+        };
         const [header, ...rows] = csvData;
         const students = rows.map((row) => {
             const obj: any = {};
             row.forEach((cell, i) => {
-            obj[header[i]] = cell;
+                const key = header[i]
+                if (key === "birthDate"){
+                    obj[key] = formatDate(cell)
+                }else{
+                    obj[header[i]] = cell;
+                }
             });
             return obj;
         });
