@@ -1,69 +1,56 @@
-# React + TypeScript + Vite
+# student-score-management-backend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
 
-Currently, two official plugins are available:
+生徒の高校入試にあたっての進路指導で必要になるデータを登録し、整理して閲覧可能にするアプリケーションのフロントエンドのプロジェクトです。
+バックエンドはこちらになります。（https://github.com/Keyka-0Rchis/student-score-management-backend.git)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 背景
 
-## Expanding the ESLint configuration
+私は前職で東京都の公立中学校の教員をしておりました。
+生徒の情報は既存の校務支援システムに保管されていますが、進路に必要な情報を見やすく提示することはできません。
+また、情報を三者面談などで保護者同席のもと確認したい際にも、レイアウトが確認するようになっていないため、
+その都度、書面を作成する必要があり、時間のない中、教員の負担になっていました。
+そのため、比較的簡単に情報を登録でき、書面の形で出力するアプリケーションを作ることにいたしました。
+アプリケーションは、教員のPCにすでに入っているブラウザソフトをそのまま使用可能なため、Webアプリにすることにしました。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+また、更なる経験と学習のため、転職を行うことを考えているため、このシステムを転職活動のポートフォリオとすることに決めました。
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## フォルダ構成
+```
+student-score-management-frontend/
+├─ public/ # 静的ファイル
+├─ src/
+│ ├─ components/ # 再利用可能なUI部品
+│ │ ├─ Header/ # ヘッダー
+│ │ ├─ MainMenu/ # メインメニュー
+│ │ ├─ SideMenu/ # サイドメニュー
+│ │ └─ RegisterStudentsUI/ # 生徒登録UI (CSV読み込み)
+│ ├─ App.tsx # ルーティング定義
+│ ├─ main.tsx # エントリーポイント
+│ ├─ index.css # グローバルスタイル
+│ └─ vite-env.d.ts # 型定義
+├─ package.json
+├─ tsconfig.json
+└─ vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 現状
+- メイン画面、サイドメニュー作成。
+- 生徒登録画面の作成。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- ## 🏃‍♂️ 実行方法
+### フロントエンド
+```bash
+cd student-score-management-frontend
+npm install
+npm run dev
 ```
+
+## 💡 今後の課題
+- ダークモード／ライトモードの切り替え
+- 生徒情報の編集・削除機能
+- 教員情報の追加・編集機能、および役職による認可認証機能
+- 成績管理画面の追加
+- Dockerによる環境構築の自動化
+- テストコードの追加
