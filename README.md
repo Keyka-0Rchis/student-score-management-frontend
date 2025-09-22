@@ -1,4 +1,4 @@
-# student-score-management-backend
+# student-score-management-frontend
 
 ## 概要
 
@@ -49,6 +49,7 @@ npm run dev
 
 ## 💡 今後の課題
 - ダークモード／ライトモードの切り替え
+- 送信する値のバリデーション
 - 生徒情報の編集・削除機能
 - 教員情報の追加・編集機能、および役職による認可認証機能
 - 成績管理画面の追加
