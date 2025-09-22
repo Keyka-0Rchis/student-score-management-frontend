@@ -1,4 +1,4 @@
-studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduateFlag
+studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduationFlag
 20250001,1101,,,テスト生徒1年生,2013/07/01,False
 20240005,1304,2203,,テスト生徒2年生,2012/08/09,False
 20230013,1211,2206,3120,テスト生徒3年生,2011/05/13,False

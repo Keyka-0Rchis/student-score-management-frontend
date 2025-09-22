@@ -60,7 +60,7 @@ function RegisterStudentsUI(){
             }
 
             const result = await response.json();
-            console.log("登録結果:", result);
+            console.log(result.message);
             alert("登録に成功しました！");
         } catch (error) {
             console.error(error);
