@@ -1,16 +1,17 @@
 import styles from './SideMenu.module.css'
 import { Link } from 'react-router-dom';
 
-type LinkTo = "/mainmenu" | "/RegisterStudentsUI" ;
+type LinkTo = "/mainmenu" | "/RegisterStudentsUI" |"/ViewStudentsUI";
 
 function SideMenu (
     props:{
-        titles:{mainmenu:string,registerStudent:string}
+        titles:{mainmenu:string,registerStudent:string, viewStudents:string}
         isOpen:boolean}
 ){
     const items:{mode:LinkTo ; title:string;iconStyle:string}[]=[
         {mode:"/mainmenu",title:props.titles.mainmenu,iconStyle:styles.mainmenuIcon},
-        {mode:"/RegisterStudentsUI",title:props.titles.registerStudent,iconStyle:styles.addIcon},
+        {mode:"/RegisterStudentsUI",title:props.titles.registerStudent,iconStyle:styles.icon},
+        {mode:"/ViewStudentsUI",title:props.titles.viewStudents,iconStyle:styles.icon},
     ]
     //この後forループっぽくするために、一つ一つのmode毎に変数をまとめておく。
     return (

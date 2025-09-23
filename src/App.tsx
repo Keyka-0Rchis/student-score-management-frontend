@@ -36,6 +36,7 @@ function App() {
             <SideMenu titles={{
               mainmenu: "メインメニュー",
               registerStudent: "生徒登録",
+              viewStudents: "生徒一覧確認"
             }}
               isOpen = {SideMenuOpen}/>
             <Routes>
@@ -46,6 +47,7 @@ function App() {
                   <MainMenu 
                     titles={{
                       registerStudents: "生徒登録",
+                      viewStudents: "生徒一覧確認",
                     }}
                   />
                 }
