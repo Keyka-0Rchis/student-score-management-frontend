@@ -13,10 +13,7 @@ import RegisterStudentsUI from './components/RegisterUI/RegisterStudentsUI'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   const [SideMenuOpen, setSideMenuOpen] = useState(false);
-    //SideMenuOpenっていうStateをfalseからスタート。setSideMenuOpenはセッター。
   const toggleSideMenu = () => {
     setSideMenuOpen(prev => !prev);
       //prev=前の状態。falseならtrueへ
@@ -52,7 +49,7 @@ function App() {
                   />
                 }
               />
-              <Route path="/RegisterStudentsUI" element={<RegisterStudentsUI />} />
+              <Route path="/RegisterStudentsUI" element={<RegisterStudentsUI/>}/>
             </Routes>
           </div>
         </div>
