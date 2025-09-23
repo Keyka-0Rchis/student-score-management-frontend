@@ -8,8 +8,8 @@ function ViewStudentsUI(){
         secondGradeNum: number;
         thirdGradeNum: number;
         name: string;
-        birth: string;
-        graduateFlag: boolean;
+        birthDate: string;
+        graduationFlag: boolean;
     }
 
     const [students,setStudents] = useState<Student[]>([]);
@@ -57,8 +57,8 @@ function ViewStudentsUI(){
                         <td>{s.firstGradeNum}</td>
                         <td>{s.secondGradeNum}</td>
                         <td>{s.thirdGradeNum}</td>
-                        <td>{s.birth}</td>
-                        <td>{s.graduateFlag ? "◯" : ""}</td>
+                        <td>{s.birthDate}</td>
+                        <td>{s.graduationFlag ? "◯" : ""}</td>
                     </tr>
                 ))}
                 </tbody>
