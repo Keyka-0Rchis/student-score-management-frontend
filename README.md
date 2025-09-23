@@ -25,7 +25,8 @@ student-score-management-frontend/
 │ │ ├─ Header/ # ヘッダー
 │ │ ├─ MainMenu/ # メインメニュー
 │ │ ├─ SideMenu/ # サイドメニュー
-│ │ └─ RegisterStudentsUI/ # 生徒登録UI (CSV読み込み)
+│ │ ├─ RegisterStudentsUI/ # 生徒登録UI (CSV読み込み)
+│ │ └─ ViewStudentsUI/ # 登録済みの生徒の一覧表示（ここで生徒情報の変更を行うことが可能になる予定）
 │ ├─ App.tsx # ルーティング定義
 │ ├─ main.tsx # エントリーポイント
 │ ├─ index.css # グローバルスタイル
