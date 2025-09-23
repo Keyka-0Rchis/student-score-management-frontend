@@ -10,6 +10,7 @@ import Header from './components/Header/Header';
 import MainMenu from './components/MainMenu/MainMenu';
 import SideMenu from './components/SideMenu/SideMenu';
 import RegisterStudentsUI from './components/RegisterUI/RegisterStudentsUI'
+import ViewStudentsUI from './components/ViewStudentsUI/ViewStudentsUI'
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                 }
               />
               <Route path="/RegisterStudentsUI" element={<RegisterStudentsUI/>}/>
+              <Route path="/ViewStudentsUI" element={<ViewStudentsUI/>}/>
             </Routes>
           </div>
         </div>
