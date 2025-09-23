@@ -2,8 +2,11 @@ import { useState } from 'react';
 import React from 'react';
 import styles from './RegisterStudents.module.css'
 
-function RegisterStudentsUI(){
+function RegisterStudentsUI(
+    // props:{loading:boolean}
+){
     const [csvData, setCsvData] = useState<string[][]>([]);
+    const [loading,setLoading] = useState(false);
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -50,6 +53,7 @@ function RegisterStudentsUI(){
         });
 
         try {
+            setLoading(true);
             const response = await fetch("http://localhost:8080/api/students/registerStudents", {
             method: "POST",
             headers: {
@@ -68,6 +72,8 @@ function RegisterStudentsUI(){
         } catch (error) {
             console.error(error);
             alert("登録に失敗しました…");
+        } finally{
+            setLoading(false)
         }
     };
 
@@ -100,6 +106,7 @@ function RegisterStudentsUI(){
                         <button onClick={handleSubmit}>登録</button>
                     </div>
                 )}
+                <p className={loading? styles.loading:styles.loaded}></p>
             </div>
         </div>
     )

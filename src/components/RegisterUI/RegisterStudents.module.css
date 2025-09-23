@@ -15,3 +15,9 @@
 .RegisterStudentsTable th{
     width: 10rem;
 }
+.loading{
+    font-weight: bold;
+}
+.loaded{
+    display: none;
+}
