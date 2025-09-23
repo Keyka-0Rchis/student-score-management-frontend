@@ -19,7 +19,7 @@ function ViewStudentsUI(){
     useEffect(() => {
         const fetchStudents = async() => {
             try{
-                const response = await fetch("http://localhost:8080/api/students/ViewStudents");
+                const response = await fetch("http://localhost:8080/api/students/viewStudents");
                 if(!response.ok) throw new Error("通信に失敗しました");
                 const data = await response.json();
                 setStudents(data);
