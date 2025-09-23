@@ -1,0 +1,13 @@
+.ViewStudentsWrapper{
+    margin-left: 10%;
+}
+.ViewStudentsTable{
+    margin: 1.5rem;
+    width: fit-content;
+}
+.ViewStudentsTable th,td{
+    border:solid 1px;
+}
+.ViewStudentsTable th{
+    width: 10rem;
+}
