@@ -3,23 +3,23 @@ import React from 'react';
 import styles from './RegisterStudents.module.css'
 
 function RegisterStudentsUI(){
-    const [csvData, setCsvData] = useState<string[][]>([])
+    const [csvData, setCsvData] = useState<string[][]>([]);
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
+        const file = event.target.files?.[0];
         
         // ファイルがなければ何もしない
-        if (!file) return
+        if (!file) return;
 
-        const reader = new FileReader()
+        const reader = new FileReader();
         // 読み込んだcsvをテキストに。
         reader.onload = (e) => {
-            const text = e.target?.result as string
+            const text = e.target?.result as string;
             // 改行で分割して行ごとに
-            const rows = text.split('\n').map(row => row.split(','))
-            setCsvData(rows)
+            const rows = text.split('\n').map(row => row.split(','));
+            setCsvData(rows);
         }
-        reader.readAsText(file)
+        reader.readAsText(file);
     }
 
     //登録処理
@@ -36,13 +36,16 @@ function RegisterStudentsUI(){
         const students = rows.map((row) => {
             const obj: any = {};
             row.forEach((cell, i) => {
-                const key = header[i]
+                const key = header[i].trim();
                 if (key === "birthDate"){
-                    obj[key] = formatDate(cell)
+                    obj[key] = formatDate(cell);
+                }else if(key === "graduationFlag"){
+                    obj[key] = cell.trim().toLowerCase()==="true";
                 }else{
-                    obj[header[i]] = cell;
+                    obj[header[i]] = cell.trim();
                 }
             });
+            console.log(obj);
             return obj;
         });
 
