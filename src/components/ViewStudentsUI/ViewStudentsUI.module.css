@@ -11,3 +11,6 @@
 .ViewStudentsTable th{
     width: 10rem;
 }
+.ViewStudentsWrapper button{
+    margin-right: 3rem;
+}

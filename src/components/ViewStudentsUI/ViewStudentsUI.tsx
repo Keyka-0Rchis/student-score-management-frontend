@@ -51,6 +51,36 @@ function ViewStudentsUI(){
 
     if (loading) return <p>読み込み中...</p>
 
+    //更新処理
+    const handleSubmit = async () => {
+        // studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduateFlag
+        try {
+            setLoading(true);
+            console.log(students)
+            const response = await fetch("http://localhost:8080/api/students/editStudents", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(students), // 状態で持っている生徒を送信
+            });
+
+            if (!response.ok) {
+                throw new Error("通信に失敗しました");
+            }
+
+            const result = await response.json();
+            console.log(result.message);
+            alert("生徒情報の更新に成功しました！");
+        } catch (error) {
+            console.error(error);
+            alert("生徒情報の更新に失敗しました…");
+        } finally{
+            toggleEditMode();
+            setLoading(false);
+        }
+    };
+
     return (
         <div className={styles.ViewStudentsWrapper}>
             <h2>生徒一覧</h2>
@@ -135,6 +165,7 @@ function ViewStudentsUI(){
                 </tbody>
             </table>
             <button onClick={toggleEditMode}>{editMode? "保存せずに戻る" : "編集モードに切り替え"}</button>
+            <button onClick={handleSubmit}>変更を保存する</button>
         </div>
     )
 }
