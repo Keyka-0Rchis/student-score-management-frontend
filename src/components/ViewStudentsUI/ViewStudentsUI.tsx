@@ -36,7 +36,7 @@ function ViewStudentsUI(){
     useEffect(() => {
         const fetchStudents = async() => {
             try{
-                const response = await fetch("http://localhost:8080/api/students/viewStudents");
+                const response = await fetch("http://localhost:8080/api/students/view");
                 if(!response.ok) throw new Error("通信に失敗しました");
                 const data = await response.json();
                 setStudents(data);
@@ -57,7 +57,7 @@ function ViewStudentsUI(){
         try {
             setLoading(true);
             console.log(students)
-            const response = await fetch("http://localhost:8080/api/students/editStudents", {
+            const response = await fetch("http://localhost:8080/api/students/edit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
