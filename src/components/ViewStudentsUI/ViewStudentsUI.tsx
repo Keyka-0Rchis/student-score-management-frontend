@@ -71,7 +71,7 @@ function ViewStudentsUI(){
 
             const result = await response.json();
             console.log(result.message);
-            alert("生徒情報の更新に成功しました！");
+            alert(result.message);
         } catch (error) {
             console.error(error);
             alert("生徒情報の更新に失敗しました…");
