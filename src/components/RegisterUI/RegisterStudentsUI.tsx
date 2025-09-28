@@ -11,6 +11,7 @@ function RegisterStudentsUI(
     const [errorMessage,setErrorMessage] = useState<string[]>([]);
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setErrorMessage([]);// エラーの状態を初期化
         const file = event.target.files?.[0];
         
         // ファイルがなければ何もしない
@@ -33,12 +34,14 @@ function RegisterStudentsUI(
         const formatDate = parse(new Date(),"yyyy-mm-dd");
         const [header, ...rows] = csvData;
         // エラー集積用の配列
-        let errorRecords : number[] = [];
-        let errorItems : string[] = [];
+        let errors : string[] = [];
+        const addErrors = (count:number,item:string) => {
+            errors.push(count+"行目："+item+"が不正です")
+        }
         // ヘッダーに合わせて入力値をチェック
-        const students = rows.map((row) => {
+        const students = rows.map((row,rowIndex) => {
             const obj: any = {};
-            let record = 1;
+            let record = rowIndex + 1;
             row.forEach((cell, i) => {
                 const key = header[i].trim();
                 switch (key){
@@ -46,19 +49,17 @@ function RegisterStudentsUI(
                     case "firstGradeNum":
                     case "secondGradeNum":
                     case "thirdGradeNum":
-                        if (isNaN(Number(cell))){
+                        if (!isNaN(Number(cell))){
                             obj[key] = cell.trim(); 
                         } else {
-                            errorRecords.push(record);
-                            errorItems.push(key);
+                            addErrors(record,key);
                         }
                         break;
                     case "name":
-                        if (typeof cell ==="string"){
+                        if (isNaN(Number(cell))){
                             obj[key] = cell.trim(); 
                         } else {
-                            errorRecords.push(record);
-                            errorItems.push(key);
+                            addErrors(record,key);
                         }
                         break;
                     case "birthDate":
@@ -67,17 +68,16 @@ function RegisterStudentsUI(
                     case "graduationFlag":
                         obj[key] = cell.trim().toLowerCase()==="true";
                 }
-                record += 1;
             });
-            if (errorRecords.length > 0){
-                for (let i:number = 0; i<errorRecords.length;i++){
-                    setErrorMessage(prev => [...prev,`${errorRecords[i]}行目：${errorItems[i]}が不正です`]);
-                }
-                return;
-            }
             console.log(obj);
             return obj;
         });
+
+        if (errors.length > 0){
+            setErrorMessage(errors);
+            alert(errors.join("\n"));
+            return;
+        }
 
         try {
             setLoading(true);
