@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import styles from './RegisterStudents.module.css';
-import { parse } from 'date-fns/fp';
+import { format } from 'date-fns';
 
 function RegisterStudentsUI(
     // props:{loading:boolean}
@@ -31,7 +31,12 @@ function RegisterStudentsUI(
     //登録処理
     const handleSubmit = async () => {
         // studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduateFlag
-        const formatDate = parse(new Date(),"yyyy-mm-dd");
+        const formatDate = (str:string) => {
+            const d = new Date(str);
+            return format(d,"yyyy-MM-dd");
+        };
+        // 正規表現で生年月日をチェック（yyyy-MM-ddになっているか）
+        const isValidDateFormat = (str: string) => /^\d{4}-\d{2}-\d{2}$/.test(str);
         const [header, ...rows] = csvData;
         // エラー集積用の配列
         let errors : string[] = [];
@@ -63,10 +68,18 @@ function RegisterStudentsUI(
                         }
                         break;
                     case "birthDate":
-                        obj[key] = formatDate(cell);
+                        if (isValidDateFormat(formatDate(cell))){
+                            obj[key] = formatDate(cell);
+                        } else {
+                            addErrors(record,key)
+                        }
                         break;
                     case "graduationFlag":
-                        obj[key] = cell.trim().toLowerCase()==="true";
+                        if (cell.trim().toLowerCase()==="true"||cell.trim().toLowerCase()==="false"){
+                            obj[key] = cell.trim().toLowerCase()==="true";    
+                        } else {
+                            addErrors(record,key);
+                        }
                 }
             });
             console.log(obj);
