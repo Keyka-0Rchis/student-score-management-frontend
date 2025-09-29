@@ -24,6 +24,9 @@ function RegisterStudentsUI(
             // 改行で分割して行ごとに
             const rows = text.split('\n').map(row => row.split(','));
             setCsvData(rows);
+
+            //読み込みが終わった時に読み込みの値をリセットしておく。
+            event.target.value = "";
         }
         reader.readAsText(file);
     }
