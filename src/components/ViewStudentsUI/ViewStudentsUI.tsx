@@ -187,7 +187,7 @@ function ViewStudentsUI(){
                         <td>
                             {editMode? 
                                 <input 
-                                    type="text" 
+                                    type="date" 
                                     value={s.birthDate}
                                     onChange={(e) => editValue(s.studentId,"birthDate", e.target.value)}
                                  /> 
