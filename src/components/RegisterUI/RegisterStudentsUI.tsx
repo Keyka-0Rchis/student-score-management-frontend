@@ -36,7 +36,7 @@ function RegisterStudentsUI(
             return format(d,"yyyy-MM-dd");
         };
         // 正規表現で生年月日をチェック（yyyy-MM-ddになっているか）
-        const isValidDateFormat = (str: string) => /^\d{4}-\d{2}-\d{2}$/.test(str);
+        const isValidDateFormat = (str: string) => /^\d{4}\/\d{2}\/\d{2}$/.test(str);
         const [header, ...rows] = csvData;
         // エラー集積用の配列
         let errors : string[] = [];
@@ -68,7 +68,7 @@ function RegisterStudentsUI(
                         }
                         break;
                     case "birthDate":
-                        if (isValidDateFormat(formatDate(cell))){
+                        if (isValidDateFormat(cell)){
                             obj[key] = formatDate(cell);
                         } else {
                             addErrors(record,key)
