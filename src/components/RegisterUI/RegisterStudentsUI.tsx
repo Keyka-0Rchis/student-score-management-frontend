@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import React from 'react';
-import styles from './RegisterStudents.module.css'
+import styles from './RegisterStudents.module.css';
+import { format } from 'date-fns';
 
 function RegisterStudentsUI(
     // props:{loading:boolean}
 ){
     const [csvData, setCsvData] = useState<string[][]>([]);
     const [loading,setLoading] = useState(false);
+    const [errorMessage,setErrorMessage] = useState<string[]>([]);
 
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setErrorMessage([]);// エラーの状態を初期化
         const file = event.target.files?.[0];
         
         // ファイルがなければ何もしない
@@ -28,29 +31,66 @@ function RegisterStudentsUI(
     //登録処理
     const handleSubmit = async () => {
         // studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduateFlag
-        const formatDate = (dateStr: string) => {
-            const d = new Date(dateStr);
-            const year = d.getFullYear();
-            const month = String(d.getMonth() + 1).padStart(2, "0");
-            const day = String(d.getDate()).padStart(2, "0");
-            return `${year}-${month}-${day}`; // ← LocalDateが理解できる形式--でつなぐ形に変換
+        const formatDate = (str:string) => {
+            const d = new Date(str);
+            return format(d,"yyyy-MM-dd");
         };
+        // 正規表現で生年月日をチェック（yyyy-MM-ddになっているか）
+        const isValidDateFormat = (str: string) => /^\d{4}\/\d{2}\/\d{2}$/.test(str);
         const [header, ...rows] = csvData;
-        const students = rows.map((row) => {
+        // エラー集積用の配列
+        let errors : string[] = [];
+        const addErrors = (count:number,item:string) => {
+            errors.push(count+"行目："+item+"が不正です")
+        }
+        // ヘッダーに合わせて入力値をチェック
+        const students = rows.map((row,rowIndex) => {
             const obj: any = {};
+            let record = rowIndex + 1;
             row.forEach((cell, i) => {
                 const key = header[i].trim();
-                if (key === "birthDate"){
-                    obj[key] = formatDate(cell);
-                }else if(key === "graduationFlag"){
-                    obj[key] = cell.trim().toLowerCase()==="true";
-                }else{
-                    obj[header[i]] = cell.trim();
+                switch (key){
+                    case "studentId":
+                    case "firstGradeNum":
+                    case "secondGradeNum":
+                    case "thirdGradeNum":
+                        if (!isNaN(Number(cell))){
+                            obj[key] = cell.trim(); 
+                        } else {
+                            addErrors(record,key);
+                        }
+                        break;
+                    case "name":
+                        if (isNaN(Number(cell))){
+                            obj[key] = cell.trim(); 
+                        } else {
+                            addErrors(record,key);
+                        }
+                        break;
+                    case "birthDate":
+                        if (isValidDateFormat(cell)){
+                            obj[key] = formatDate(cell);
+                        } else {
+                            addErrors(record,key)
+                        }
+                        break;
+                    case "graduationFlag":
+                        if (cell.trim().toLowerCase()==="true"||cell.trim().toLowerCase()==="false"){
+                            obj[key] = cell.trim().toLowerCase()==="true";    
+                        } else {
+                            addErrors(record,key);
+                        }
                 }
             });
             console.log(obj);
             return obj;
         });
+
+        if (errors.length > 0){
+            setErrorMessage(errors);
+            alert(errors.join("\n"));
+            return;
+        }
 
         try {
             setLoading(true);
@@ -81,6 +121,13 @@ function RegisterStudentsUI(
     return(
         <div className={styles.RegisterStudentsUI}>
             <div className={styles.RegisterStudentsUIWrapper}>
+                {errorMessage.length > 0 &&(
+                    <div className='errorBox'>
+                        {errorMessage.map((e,i) => (
+                            <p key={i}>{e}</p>
+                        ))}
+                    </div>
+                )}
                 <h2>CSVで生徒を追加</h2>
                 <input type="file" accept=".csv" onChange={handleFileUpload} />
                 {csvData.length > 0 && (
