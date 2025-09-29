@@ -105,7 +105,20 @@ function ViewStudentsUI(){
                                 <input 
                                     type="text" 
                                     value={s.firstGradeNum}
-                                    onChange={(e) => editValue(s.studentId,"firstGradeNum", Number(e.target.value))}
+                                    onChange={(e) => {
+                                        // 数字以外が入らないようにする
+                                        if (/[^\d]/.test(e.target.value)) {
+                                            return;
+                                        }
+                                        // 5文字目の入力にロックをかけて、5桁以上にならないようにする
+                                        if (/\d{5}/.test(e.target.value)){
+                                            return
+                                            // editValue(s.studentId,"thirdGradeNum", Number(e.target.value));
+                                        } else {
+                                            editValue(s.studentId,"thirdGradeNum", Number(e.target.value));
+                                            // return;
+                                        }
+                                    }}
                                  /> 
                                 : s.firstGradeNum
                             }
@@ -115,7 +128,19 @@ function ViewStudentsUI(){
                                 <input 
                                     type="text" 
                                     value={s.secondGradeNum}
-                                    onChange={(e) => editValue(s.studentId,"secondGradeNum", Number(e.target.value))}
+                                    onChange={(e) => {
+                                        // 数字以外が入らないようにする
+                                        if (/[^\d]/.test(e.target.value)) {
+                                            return;
+                                        }
+                                        // 5文字目の入力にロックをかけて、5桁以上にならないようにする
+                                        if (/\d{5}/.test(e.target.value)){
+                                            return
+                                            // editValue(s.studentId,"thirdGradeNum", Number(e.target.value));
+                                        } else {
+                                            editValue(s.studentId,"thirdGradeNum", Number(e.target.value));
+                                            // return;
+                                        }}}
                                  /> 
                                 : s.secondGradeNum
                             }
@@ -125,7 +150,20 @@ function ViewStudentsUI(){
                                 <input 
                                     type="text" 
                                     value={s.thirdGradeNum}
-                                    onChange={(e) => editValue(s.studentId,"thirdGradeNum", Number(e.target.value))}
+                                    onChange={(e) => {
+                                        // 数字以外が入らないようにする
+                                        if (/[^\d]/.test(e.target.value)) {
+                                            return;
+                                        }
+                                        // 5文字目の入力にロックをかけて、5桁以上にならないようにする
+                                        if (/\d{5}/.test(e.target.value)){
+                                            return
+                                            // editValue(s.studentId,"thirdGradeNum", Number(e.target.value));
+                                        } else {
+                                            editValue(s.studentId,"thirdGradeNum", Number(e.target.value));
+                                            // return;
+                                        }
+                                    }}
                                  /> 
                                 : s.thirdGradeNum
                             }
@@ -135,7 +173,13 @@ function ViewStudentsUI(){
                                 <input 
                                     type="text" 
                                     value={s.name}
-                                    onChange={(e) => editValue(s.studentId,"name", e.target.value)}
+                                    onChange={(e) => {
+                                        if (/^\d+$/.test(e.target.value)) {
+                                            // 数字だけなら何もしない（編集前の値を維持）
+                                            return;
+                                        }
+                                        editValue(s.studentId,"name", e.target.value)
+                                    }}
                                  /> 
                                 : s.name
                             }
