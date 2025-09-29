@@ -32,11 +32,12 @@ function RegisterStudentsUI(
     const handleSubmit = async () => {
         // studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduateFlag
         const formatDate = (str:string) => {
+            console.log("formatDate input:", str)
             const d = new Date(str);
             return format(d,"yyyy-MM-dd");
         };
-        // 正規表現で生年月日をチェック（yyyy-MM-ddになっているか）
-        const isValidDateFormat = (str: string) => /^\d{4}\/\d{2}\/\d{2}$/.test(str);
+        // 正規表現で生年月日をチェック（yyyy-MM-ddまたはyyyy/mm/ddになっているか）
+        const isValidDateFormat = (str: string) => /^\d{4}[-/]\d{2}[-/]\d{2}$/.test(str);
         const [header, ...rows] = csvData;
         // エラー集積用の配列
         let errors : string[] = [];
@@ -51,11 +52,25 @@ function RegisterStudentsUI(
                 const key = header[i].trim();
                 switch (key){
                     case "studentId":
+                        if (!isNaN(Number(cell))){
+                            if (/\d{8}/.test(cell)){
+                                obj[key] = cell.trim();
+                            } else {
+                                addErrors(record,key);
+                            }
+                        } else {
+                            addErrors(record,key);
+                        }
+                        break;
                     case "firstGradeNum":
                     case "secondGradeNum":
                     case "thirdGradeNum":
                         if (!isNaN(Number(cell))){
-                            obj[key] = cell.trim(); 
+                            if (/\d{4}/.test(cell)||cell===""){
+                                obj[key] = cell.trim();
+                            } else {
+                                addErrors(record,key);
+                            }
                         } else {
                             addErrors(record,key);
                         }
@@ -69,7 +84,12 @@ function RegisterStudentsUI(
                         break;
                     case "birthDate":
                         if (isValidDateFormat(cell)){
-                            obj[key] = formatDate(cell);
+                            try {
+                                const normalized = cell.trim().replace(/\//g, "-");
+                                obj[key] = formatDate(normalized); // ←ありえない日付でうまくいかなければcatch
+                            } catch {
+                                addErrors(record, key);
+                            }
                         } else {
                             addErrors(record,key)
                         }

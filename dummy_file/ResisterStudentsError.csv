@@ -1,5 +1,5 @@
 studentId,firstGradeNum,secondGradeNum,thirdGradeNum,name,birthDate,graduationFlag
 20250001,aaaa,,,テスト生徒1年生,2013/07/01,x
-20240005,1304,2203,,1254,2012/08/99,false
+20245,1304,223,,1254,2012/08/99,false
 20230013,1211,ssss,tttt,テスト生徒3年生,53,false
 20220140,1135,2136,3335,テスト生徒卒業生,2010/05/22,true
