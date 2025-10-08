@@ -41,14 +41,14 @@ student-score-management-frontend/
 - 生徒登録画面、一覧表示画面の作成。
 - 生徒情報の更新と論理削除（卒業）を実装。
 
-- ## 🏃‍♂️ 実行方法
+- ## 実行方法
 ```bash
 cd student-score-management-frontend
 npm install
 npm run dev
 ```
 
-## 💡 今後の課題
+## 今後の課題
 - ダークモード／ライトモードの切り替え
 - 送信する値のバリデーション
 - 教員情報の追加・編集機能、および役職による認可認証機能
