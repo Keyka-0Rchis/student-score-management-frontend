@@ -126,7 +126,19 @@ function RegisterStudentsUI(
             });
 
             if (!response.ok) {
-                throw new Error("通信に失敗しました");
+                const error = await response.json();
+
+                // DuplicateIdException (自作) の形式（ErrorCode, Message）
+                if (error.ErrorCode==="E002") {
+                    setErrorMessage([`${error.ErrorCode}: ${error.Message}`]);
+                }
+                // @Valid の形式（detailsはfield,messageを含む配列）
+                else if (error.ErrorCode==="E001") {
+                    const messages = error.Details.map(
+                        (d:any) => `${d.field}：${d.message}`
+                    );
+                    setErrorMessage(messages);
+                }
             }
 
             const result = await response.json();
